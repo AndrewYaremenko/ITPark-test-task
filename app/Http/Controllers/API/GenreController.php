@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Http\Requests\GenreRequest;
 use App\Http\Services\GenreService;
+use App\Http\Controllers\Controller;
 
 class GenreController extends Controller
 {

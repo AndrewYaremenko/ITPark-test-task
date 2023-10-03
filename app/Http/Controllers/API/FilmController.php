@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controller\API;
 
 use App\Http\Requests\FilmRequest;
 use App\Http\Services\FilmService;
+use App\Http\Controllers\Controller;
 
 class FilmController extends Controller
 {

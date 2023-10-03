@@ -1,2 +1,4 @@
-!posters/default_poster.jpg
 !.gitignore
+posters/*
+./*
+!posters/default_poster.jpg
