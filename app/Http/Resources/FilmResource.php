@@ -18,7 +18,9 @@ class FilmResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'publication_status' => $this->publication_status,
-            'poster_link' => $this->poster_link
+            'poster_link' => $this->poster_link,
+            'genres' => GenreResource::collection($this->genres),
         ];
     }
+    
 }

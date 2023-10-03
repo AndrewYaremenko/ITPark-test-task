@@ -17,6 +17,8 @@ class FilmRequest extends FormRequest
             'title' => 'required|string|max:255',
             'publication_status' => 'boolean',
             'poster_link' => 'nullable|string|max:255',
+            'genres' => 'nullable|array',
+            'genres.*' => 'exists:genres,id',
         ];
     }
 }
