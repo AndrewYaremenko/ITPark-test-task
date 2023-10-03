@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\Validation\Validator;
 
 class FilmRequest extends FormRequest
 {
@@ -20,5 +22,14 @@ class FilmRequest extends FormRequest
             'genres' => 'nullable|array',
             'genres.*' => 'exists:genres,id',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $response = new JsonResponse([  
+            'errors' => $validator->errors(),
+        ], 400);
+
+        throw new \Illuminate\Validation\ValidationException($validator, $response);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use App\Models\Genre;
 use App\Http\Requests\GenreRequest;
 use App\Http\Resources\GenreResource;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class GenreService
 {
@@ -26,24 +27,36 @@ class GenreService
             ->setStatusCode(201);
     }
 
-    public function getGenre(Genre $genre)
+    public function getGenre($genreId)
     {
-        return new GenreResource($genre);
+        try {
+            $genre = Genre::findOrFail($genreId);
+            return new GenreResource($genre);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['errors' => ["genre" => ['Genre not found.']]], 404);
+        }
     }
 
-    public function updateGenre(GenreRequest $request, Genre $genre)
+    public function updateGenre(GenreRequest $request, $genreId)
     {
-        $validatedData = $request->validated();
-
-        $genre->update($validatedData);
-
-        return new GenreResource($genre);
+        try {
+            $validatedData = $request->validated();
+            $genre = Genre::findOrFail($genreId);
+            $genre->update($validatedData);
+            return new GenreResource($genre);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['errors' => ["genre" => ['Genre not found.']]], 404);
+        }
     }
 
-    public function destroyGenre(Genre $genre)
+    public function destroyGenre($genreId)
     {
-        $genre->delete();
-
-        return response()->json(['message' => 'Genre deleted!'], 200);
+        try {
+            $genre = Genre::findOrFail($genreId);
+            $genre->delete();
+            return response()->json(['message' => 'Genre deleted!'], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['errors' => ["genre" => ['Genre not found.']]], 404);
+        }
     }
 }

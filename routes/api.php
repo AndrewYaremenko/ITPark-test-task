@@ -23,15 +23,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'films'], function () {
     Route::get('/', [FilmController::class, 'index'])->name('index');
     Route::post('/', [FilmController::class, 'store'])->name('store');
-    Route::get('/{film}', [FilmController::class, 'show'])->name('show');
-    Route::put('/{film}', [FilmController::class, 'update'])->name('update');
-    Route::delete('/{film}', [FilmController::class, 'destroy'])->name('destroy');
+    Route::get('/{id}', [FilmController::class, 'show'])->name('show');
+    Route::put('/{id}', [FilmController::class, 'update'])->name('update');
+    Route::delete('/{id}', [FilmController::class, 'destroy'])->name('destroy');
 });
 
 Route::group(['prefix' => 'genres'], function () {
     Route::get('/', [GenreController::class, 'index'])->name('index');
     Route::post('/', [GenreController::class, 'store'])->name('store');
-    Route::get('/{genre}', [GenreController::class, 'show'])->name('show');
-    Route::put('/{genre}', [GenreController::class, 'update'])->name('update');
-    Route::delete('/{genre}', [GenreController::class, 'destroy'])->name('destroy');
+    Route::get('/{id}', [GenreController::class, 'show'])->name('show');
+    Route::put('/{id}', [GenreController::class, 'update'])->name('update');
+    Route::delete('/{id}', [GenreController::class, 'destroy'])->name('destroy');
 });

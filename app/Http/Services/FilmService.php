@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use App\Models\Film;
 use App\Http\Requests\FilmRequest;
 use App\Http\Resources\FilmResource;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class FilmService
 {
@@ -17,36 +18,49 @@ class FilmService
 
     public function saveFilm(FilmRequest $request)
     {
-        $validatedData = $request->validated();
+            $validatedData = $request->validated();
+    
+            $film = Film::create($validatedData);
+    
+            if (isset($validatedData['genres'])) {
+                $film->genres()->sync($validatedData['genres']);
+            }
+    
+            return (new FilmResource($film))
+                ->response()
+                ->setStatusCode(201);
+    }
 
-        $film = Film::create($validatedData);
-        if (isset($validatedData['genres'])) {
-            $film->genres()->sync($validatedData['genres']);
+    public function getFilm($filmId)
+    {
+        try {
+            $film = Film::findOrFail($filmId);
+            return new FilmResource($film);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['errors' => ["film" => ['Film not found.']]], 404);
         }
-
-        return (new FilmResource($film))
-        ->response()
-        ->setStatusCode(201);
     }
 
-    public function getFilm(Film $film)
+    public function updateFilm(FilmRequest $request, $filmId)
     {
-        return new FilmResource($film);
+        try {
+            $validatedData = $request->validated();
+            $film = Film::findOrFail($filmId);
+            $film->update($validatedData);
+            return new FilmResource($film);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['errors' => ["film" => ['Film not found.']]], 404);
+        }
     }
 
-    public function updateFilm(FilmRequest $request, Film $film)
+    public function destroyFilm($filmId)
     {
-        $validatedData = $request->validated();
-
-        $film->update($validatedData);
-
-        return new FilmResource($film);
-    }
-
-    public function destroyFilm(Film $film)
-    {
-        $film->delete();
-
-        return response()->json(['message' => 'Film deleted!'], 200);
+        try {
+            $film = Film::findOrFail($filmId);
+            $film->delete();
+            return response()->json(['message' => 'Film deleted!'], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['errors' => ["film" => ['Film not found.']]], 404);
+        }
     }
 }

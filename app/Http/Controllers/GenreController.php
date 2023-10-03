@@ -29,23 +29,23 @@ class GenreController extends Controller
         return $genreResource;
     }
 
-    public function show(Genre $genre)
+    public function show($id)
     {
-        $genreResource = $this->genreService->getGenre($genre);
+        $genreResource = $this->genreService->getGenre($id);
 
         return $genreResource;
     }
 
-    public function update(GenreRequest $request, Genre $genre)
+    public function update(GenreRequest $request, $id)
     {
-        $filmResource = $this->genreService->updateGenre($request, $genre);
+        $filmResource = $this->genreService->updateGenre($request, $id);
 
         return $filmResource;
     }
 
-    public function destroy(Genre $genre)
+    public function destroy($id)
     {
-        $response = $this->genreService->destroyGenre($genre);
+        $response = $this->genreService->destroyGenre($id);
 
         return $response;
     }

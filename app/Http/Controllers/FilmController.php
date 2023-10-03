@@ -29,23 +29,23 @@ class FilmController extends Controller
         return $filmResource;
     }
 
-    public function show(Film $film)
+    public function show($id)
     {
-        $filmResource = $this->filmService->getFilm($film);
+        $filmResource = $this->filmService->getFilm($id);
 
         return $filmResource;
     }
 
-    public function update(FilmRequest $request, Film $film)
+    public function update(FilmRequest $request, $id)
     {
-        $filmResource = $this->filmService->updateFilm($request, $film);
+        $filmResource = $this->filmService->updateFilm($request, $id);
 
         return $filmResource;
     }
 
-    public function destroy(Film $film)
+    public function destroy($id)
     {
-        $response = $this->filmService->destroyFilm($film);
+        $response = $this->filmService->destroyFilm($id);
 
         return $response;
     }
