@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'films'], function () {
+Route::group(['prefix' => 'films', 'as' => 'films.'], function () {
     Route::get('/', [FilmController::class, 'index'])->name('index');
     Route::post('/', [FilmController::class, 'store'])->name('store');
     Route::get('/{id}', [FilmController::class, 'show'])->name('show');
@@ -28,7 +28,7 @@ Route::group(['prefix' => 'films'], function () {
     Route::delete('/{id}', [FilmController::class, 'destroy'])->name('destroy');
 });
 
-Route::group(['prefix' => 'genres'], function () {
+Route::group(['prefix' => 'genres', 'as' => 'genres.'], function () {
     Route::get('/', [GenreController::class, 'index'])->name('index');
     Route::post('/', [GenreController::class, 'store'])->name('store');
     Route::get('/{id}', [GenreController::class, 'show'])->name('show');

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Film;
 use App\Http\Requests\FilmRequest;
 use App\Http\Services\FilmService;
 
