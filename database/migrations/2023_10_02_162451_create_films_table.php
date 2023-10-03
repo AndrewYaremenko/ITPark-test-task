@@ -17,7 +17,7 @@ class CreateFilmsTable extends Migration
             $table->id();
             $table->string('title');
             $table->boolean('publication_status')->default(false);
-            $table->string('poster_link')->nullable();
+            $table->string('poster_link')->default('default_poster.jpg');
             $table->timestamps();
         });
     }

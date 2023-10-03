@@ -12,7 +12,7 @@
 
             <div class="form-group mb-2">
                 <label for="file">Poster:</label>
-                <input type="file" class="form-control-file" id="file" name="file">
+                <input type="file" class="form-control-file" id="poster" name="poster" accept=".jpeg, .jpg, .png">
             </div>
 
             <div class="form-group mb-2">

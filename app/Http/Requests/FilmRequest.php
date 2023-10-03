@@ -18,7 +18,7 @@ class FilmRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'publication_status' => 'boolean',
-            'poster_link' => 'nullable|string|max:255',
+            'poster' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
             'genres' => 'nullable|array',
             'genres.*' => 'exists:genres,id',
         ];

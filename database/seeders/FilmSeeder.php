@@ -18,32 +18,27 @@ class FilmSeeder extends Seeder
 
         $film1 = Film::create([
             'title' => 'Film 1',
-            'publication_status' => true,
-            'poster_link' => 'poster1.jpg',
+            'publication_status' => true
         ]);
 
         $film2 = Film::create([
             'title' => 'Film 2',
-            'publication_status' => true,
-            'poster_link' => 'poster2.jpg',
+            'publication_status' => false
         ]);
 
         $film3 = Film::create([
             'title' => 'Film 3',
-            'publication_status' => true,
-            'poster_link' => 'poster3.jpg',
+            'publication_status' => false
         ]);
 
         $film4 = Film::create([
             'title' => 'Film 4',
-            'publication_status' => true,
-            'poster_link' => 'poster4.jpg',
+            'publication_status' => true
         ]);
 
         $film5 = Film::create([
             'title' => 'Film 5',
-            'publication_status' => true,
-            'poster_link' => 'poster5.jpg',
+            'publication_status' => false
         ]);
 
         $actionGenre = Genre::where('name', 'Action')->first();

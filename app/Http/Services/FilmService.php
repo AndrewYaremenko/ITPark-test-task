@@ -6,6 +6,7 @@ use App\Models\Film;
 use App\Http\Requests\FilmRequest;
 use App\Http\Resources\FilmResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Storage;
 
 class FilmService
 {
@@ -19,6 +20,13 @@ class FilmService
     public function saveFilm(FilmRequest $request)
     {
             $validatedData = $request->validated();
+
+            if ($request->hasFile('poster')) {
+                $file = $request->file('poster');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $file->storeAs('public/posters', $filename);
+                $validatedData['poster_link'] = $filename;
+            }
     
             $film = Film::create($validatedData);
     
@@ -46,7 +54,21 @@ class FilmService
         try {
             $validatedData = $request->validated();
             $film = Film::findOrFail($filmId);
+
+            if ($request->hasFile('poster')) {
+
+                if ($film->poster_link) {
+                    Storage::delete('public/posters/' . $film->poster_link);
+                }
+    
+                $file = $request->file('poster');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $file->storeAs('public/posters', $filename);
+                $validatedData['poster_link'] = $filename;
+            }
+
             $film->update($validatedData);
+            
             return new FilmResource($film);
         } catch (ModelNotFoundException $e) {
             return response()->json(['errors' => ["film" => ['Film not found.']]], 404);
