@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controller\API;
+namespace App\Http\Controllers\API;
 
 use App\Http\Requests\FilmRequest;
 use App\Http\Services\FilmService;
