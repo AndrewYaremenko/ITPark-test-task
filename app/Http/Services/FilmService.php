@@ -49,6 +49,17 @@ class FilmService
         }
     }
 
+    public function publishFilm($filmId)
+    {
+        try {
+            $film = Film::findOrFail($filmId);
+            $response = $film->publish();
+            return $response;
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['errors' => ["film" => ['Film not found.']]], 404);
+        }
+    }
+
     public function updateFilm(FilmRequest $request, $filmId)
     {
         try {

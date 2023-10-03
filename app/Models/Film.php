@@ -19,4 +19,14 @@ class Film extends Model
     {
         return $this->belongsToMany(Genre::class, 'film_genres', 'film_id', 'genre_id');
     }
+
+    public function publish()
+    {
+        if ($this->publication_status) {
+            return response()->json(['error' => 'Film has already been published'], 400);
+        }
+        $this->update(['publication_status' => true]);
+
+        return response()->json(['message' => 'Film was successfully published'], 200);
+    }
 }

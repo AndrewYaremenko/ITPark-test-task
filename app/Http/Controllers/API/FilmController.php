@@ -36,6 +36,13 @@ class FilmController extends Controller
         return $filmResource;
     }
 
+    public function publish($id)
+    {
+        $filmResource = $this->filmService->publishFilm($id);
+
+        return $filmResource;
+    }
+
     public function update(FilmRequest $request, $id)
     {
         $filmResource = $this->filmService->updateFilm($request, $id);

@@ -24,6 +24,7 @@ Route::group(['prefix' => 'films', 'as' => 'films.'], function () {
     Route::get('/', [FilmController::class, 'index'])->name('index');
     Route::post('/', [FilmController::class, 'store'])->name('store');
     Route::get('/{id}', [FilmController::class, 'show'])->name('show');
+    Route::post('/publish/{id}', [FilmController::class, 'publish'])->name('publish');
     Route::put('/{id}', [FilmController::class, 'update'])->name('update');
     Route::delete('/{id}', [FilmController::class, 'destroy'])->name('destroy');
 });
