@@ -68,7 +68,7 @@ class FilmService
 
             if ($request->hasFile('poster')) {
 
-                if ($film->poster_link) {
+                if ($film->poster_link && $film->poster_link !== 'default_poster.jpg') {
                     Storage::delete('public/posters/' . $film->poster_link);
                 }
     
