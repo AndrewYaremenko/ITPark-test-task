@@ -1,64 +1,114 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# ITPark-test-task
+###### Laravel v8.83.27 (PHP v8.1.0)
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## WEB:
 
-## About Laravel
+**/form** - FormController::index<br>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## REST API:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### Films
+**GET /api/films** - API\FilmController::index<br>
+**POST /api/films** - API\FilmController::store
+```
+{
+    "title": string:required,
+    "publication_status": boolean,
+    "poster": file (enctype: multipart/form-data),
+    "genres": array[int]
+}
+```
+Пример запроса
+```
+{
+    "title": "Some film",
+    "publication_status": false,
+    "genres": [1, 4, 5]
+}
+```
+**POST /api/films/{id}** - API\FilmController::publish<br>
+**GET /api/films/{id}**  - API\FilmController::show<br>
+**PUT /api/films/{id}** - API\FilmController::update
+```
+{
+    "title": string:required,
+    "publication_status": boolean,
+    "poster": file (enctype: multipart/form-data),
+    "genres": array[int]
+}
+```
+Пример запроса
+```
+{
+    "title": "Update film",
+    "publication_status": true,
+    "genres": [2, 3]
+}
+```
+**DELETE /api/films/{id}** - destroy<br>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+#### Genres
+**GET /api/genres** - API\GenreController::index<br>
+**POST /api/genres** - API\GenreController::store
+```
+{
+    "name":string:required,
+}
+```
+Example body
+```
+{
+    "name": "Some genre",
+}
+```
+**GET /api/genres/{id}** - API\GenreController::show<br>
+**PUT /api/genres/{id}** - API\GenreController::update
+```
+{
+    "name":string:required,
+}
+```
+Пример запроса
+```
+{
+    "name": "Some updated genre",
+}
+```
+**DELETE /api/genres/{id}** - API\GenreController::destroy<br>
 
-## Learning Laravel
+## Установка с Docker
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Загрузите репозиторий с помощью команды ```git clone https://github.com/AndrewYaremenko/ITPark-test-task.git```
+- Перейдите в директорию проекта: ```cd ITPark-test-task```
+- Установите необходимые PHP библиотеки, выполнив команду: ```composer install```
+- Установите необходимые NPM библиотеки, выполнив команду: ```npm install```
+- Выполнить билд фронта: ```npm run dev```
+- Скопируйте файл ```.env.docker``` и переименуйте его в ```.env```
+- Запустить приложение: ```docker-compose up -d```
+- Открыть терминал контейнера: ```docker exec -it project_app bash```
+- Выполните миграцию таблиц в БД с помощью команды: ```php artisan migrate```
+- Выполните миграцию таблиц в БД с помощью команды: ```php artisan bd:seed```
+- Сгенерируйте ключ приложения, выполнив команду: ```php artisan key:generate```
+- Создайте символическую ссылку для обеспечения доступа к файлам: ```php artisan storage:link```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Установка без Docker
 
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Загрузите репозиторий с помощью команды ```git clone https://github.com/AndrewYaremenko/ITPark-test-task.git```
+- Перейдите в директорию проекта: ```cd ITPark-test-task```
+- Установите необходимые PHP библиотеки, выполнив команду: ```composer install```
+- Установите необходимые NPM библиотеки, выполнив команду: ```npm install```
+- Выполнить билд фронта: ```npm run dev```
+- Скопируйте файл ```.env.example``` и переименуйте его в ```.env```, затем откройте файл и укажите следующие поля
+<pre>
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+</pre>
+- Выполните миграцию таблиц в БД с помощью команды: ```php artisan migrate```
+- Выполните миграцию таблиц в БД с помощью команды: ```php artisan bd:seed```
+- Сгенерируйте ключ приложения, выполнив команду: ```php artisan key:generate```
+- Создайте символическую ссылку для обеспечения доступа к файлам: ```php artisan storage:link```
+- Запустить сервер: ```php artisan serve```
